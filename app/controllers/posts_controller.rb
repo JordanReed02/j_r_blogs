@@ -1,82 +1,48 @@
 class PostsController < ApplicationController
 
-  # GET: /posts -> index
-  get "/posts" do
-    @posts = Post.all
-    erb :"/posts/index.html"
+    before do
+        require_login
+    end
+
+    ## CRUD-Read, show all and show all by type tag
+    get "/" do
+    @posts = Post.order("created_at DESC")
+    @title = "Welcome."
+    erb :"homepage"
   end
 
-  # GET: /posts/new -> new
-  get "/posts/new" do
-    redirect_if_not_logged_in
+  # create new post
+  get "/posts/create" do
+    @title = "Create post"
     @post = Post.new
-    erb :"/posts/new.html"
+    erb :"posts/create"
   end
-
-  # POST: /posts -> create
   post "/posts" do
-    redirect_if_not_logged_in
-    @post = current_user.posts.build(title: params[:post][:title], content: params[:post][:content])
+    redirect "posts/create", :error => 'Invalid captcha' unless captcha_pass?
+    @post = Post.new(params[:post])
     if @post.save
-      redirect "/posts"
+      redirect "posts/#{@post.id}", :notice => 'Congrats! Love the new post. (This message will disappear in 4 seconds.)'
     else
-      erb :"/posts/new.html"
+      redirect "posts/create", :error => 'Something went wrong. Try again. (This message will disappear in 4 seconds.)'
     end
   end
 
-  # GET: /posts/5 -> show
+  # view post
   get "/posts/:id" do
-    set_post
-    erb :"/posts/show.html"
+    @post = Post.find(params[:id])
+    @title = @post.title
+    erb :"posts/view"
   end
 
-  # GET: /posts/5/edit -> edit
+  # edit post
   get "/posts/:id/edit" do
-    set_post
-    redirect_if_not_authorized
-    erb :"/posts/edit.html"
+    @post = Post.find(params[:id])
+    @title = "Edit Form"
+    erb :"posts/edit"
   end
-
-  # PATCH: /posts/5 -> update
-  patch "/posts/:id" do
-    set_post
-    redirect_if_not_authorized
-    if @post.update(title: params[:post][:title], content: params[:post][:content])
-      flash[:success] = "Post successfully updated"
-      redirect "/posts/#{@post.id}"
-    else
-      erb :"/posts/edit.html"
-    end
+  put "/posts/:id" do
+    @post = Post.find(params[:id])
+    @post.update(params[:post])
+    redirect "/posts/#{@post.id}"
   end
-
-  # DELETE: /posts/5 - destroy
-  delete "/posts/:id" do
-    set_post
-    redirect_if_not_authorized
-    @post.destroy
-    redirect "/posts"
-  end
-
-  private
-
-  def set_post
-    @post = Post.find_by_id(params[:id])
-    if @post.nil?
-      flash[:error] = "Couldn't find a Post with id: #{params[:id]}"
-      redirect "/posts"
-    end
-  end
-
-  def redirect_if_not_authorized
-    redirect_if_not_logged_in
-    if !authorize_post(@post)
-      flash[:error] = "You don't have permission to do that action"
-      redirect "/posts"
-    end
-  end
-
-  def authorize_post(post)
-    current_user == post.author
-  end
-
 end

@@ -1,8 +1,8 @@
-require_relative './config/environment'
-
+require './config/environment'
+require 'tux'
 
 use Rack::MethodOverride
 run ApplicationController
 run PostsController
 run SessionsController
-run UsersController
+run UserController

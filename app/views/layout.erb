@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+  <head>
+    <title>JR Blogs</title>
+    <link rel="stylesheet" href="/stylesheets/main.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header><img src="/images/cc-med.png">
+      <nav>
+        <ul>
+        <% if logged_in? %>
+
+      </div>
+
+      <div class="row">
+        <div class="leftcolumn">
+          <div class="card">
+            <br>
+            <h3>TITLE <br> <textarea id=”content” name=”content”></textarea></h3>
+
+            <h3>BODY <br> <textarea id=”content” name=”content”></textarea></h3>
+        <br>
+
+
+          <div class="card">
+          </div>
+
+        <div class="rightcolumn">
+          <div class="card">
+        <h3>SUMMARY <br> <textarea id=”content” name=”content”></textarea></h3>
+
+
+      <input type="submit" value="Submit">
+
+      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+          </div>
+
+          <li><a href="/recipes">All Recipes</a></li>
+
+          <li><a href="/">About</a></li>
+          <li><a href="/logout">Log Out</a></li>
+        <% else %>
+          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login">Log In</a></li>
+           <a class="active" href="/">Home</a>
+
+        <% end %>
+        </ul>
+      </nav>
+      <br><br>
+
+
+        <%= yield %>
+
+      <footer class="branding">
+      <div class="row">
+        <div class="column"><small>&copy; 2020 <strong>JR_Blogs</strong></small></div>
+        <div class="column"><small>Made by Jordan Reed
+      </div>
+      </footer>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+      <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+
+  </body>
+</html>

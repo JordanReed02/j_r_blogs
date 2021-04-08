@@ -1,42 +1,32 @@
-require './config/environment'
+require "./config/environment"
 
 class ApplicationController < Sinatra::Base
 
-  configure do
-    set :public_folder, "public"
-    set :views, "views"
-    enable :sessions
-    set :session_secret, ENV["SESSION_SECRET"]
-    set :method_override, true
-    register Sinatra::Flash
-  end
-
-
-  get "/" do
-    @posts = Post.all
-    erb :"sessions/login"
-  end
-
-  not_found do
-    flash[:error] = "Whoops! Couldn't find that route"
-    redirect "/posts"
-  end
-
-  private
-
-  def current_user
-    User.find_by_id(session[:id])
-  end
-
-  def logged_in?
-    !!current_user
-  end
-
-  def redirect_if_not_logged_in
-    if !logged_in?
-      flash[:error] = "You must be logged in to view that page"
-      redirect request.referrer || "/login"
+    configure do
+        set :public_folder, 'public'
+        set :views, 'app/views'
+        enable :sessions
+        set :session_secret, "secret"
     end
-  end
+
+    get '/' do
+        erb :'/homepage'
+    end
+
+    helpers do
+        def logged_in?
+            !!session[:user_id]
+        end
+
+        def current_user
+           @current_user = User.find_by(session[:user_id])
+        end
+
+        def authorized_to_edit?(post)
+            @post.user == @current_user
+        end
+
+    end
+
 
 end
