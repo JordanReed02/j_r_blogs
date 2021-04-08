@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
   get "/" do
-     erb :index
+     erb :homepage
    end
 
    get "/signup" do
@@ -34,7 +34,7 @@ class UserController < ApplicationController
 
    get "/homepage" do
      if logged_in?
-       erb :success
+       erb :homepage
      else
        redirect "/login"
      end
@@ -57,6 +57,11 @@ class UserController < ApplicationController
      def current_user
        User.find(session[:user_id])
      end
-   end
 
- end
+    
+get '/posts/new' do
+  @posts = Post.all
+  erb :'/owners/new'
+end
+     end
+       end

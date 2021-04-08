@@ -1,0 +1,84 @@
+body
+{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif
+  background: #ff5722
+
+}
+ul
+{
+  margin: 0;
+  padding: 20px;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width:400px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.2);
+}
+
+ul li .date
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  text-align: center;
+}
+
+ul li .date:before
+{
+
+}
+
+.widgets-php .rpwe-columns-3 {
+	overflow: hidden;
+	float: left;
+	width: 31%;
+	margin-right: 3.5%;
+}
+
+.widgets-php .rpwe-columns-3 select.widefat {
+	width: 98.5%;
+}
+
+.widgets-php .rpwe-column-last {
+	float: right;
+	margin-right: 0;
+}
+
+.widgets-php .rpwe-columns-3 label {
+	font-size: 11px;
+}
+
+.widgets-php .rpwe-columns-3 p small {
+	color: #777;
+	font-style: italic;
+}
+
+.small-input {
+	width: 30%;
+}
+
+.rpwe-block {
+	display: block;
+}
+
+.rpwe-multiple-check-form {
+	margin: 1em 0;
+}
+
+.rpwe-multiple-check-form ul {
+	border: 1px solid #eee;
+	padding: 10px;
+	max-height: 110px;
+	overflow: auto;
+	margin-top: 0;
+}
+
+.rpwe-multiple-check-form ul li:last-child {
+	margin-bottom: 0;
+}

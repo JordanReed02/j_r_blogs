@@ -26,7 +26,5 @@ class ApplicationController < Sinatra::Base
             @post.user == @current_user
         end
 
+        end
     end
-
-
-end
